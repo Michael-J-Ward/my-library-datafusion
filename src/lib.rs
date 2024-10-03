@@ -16,7 +16,7 @@ fn get_py_context() -> PySessionContext {
 }
 
 #[pymodule]
-fn my_library(_: Python<'_>, main_module: &PyModule) -> PyResult<()> {
-    main_module.add_function(wrap_pyfunction!(get_py_context, main_module)?)?;
+fn my_library(_: Python<'_>, main_module: Bound<'_, PyModule>) -> PyResult<()> {
+    main_module.add_wrapped(wrap_pyfunction!(get_py_context))?;
     Ok(())
 }
